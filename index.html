@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Movie Picker</h1>
+
+    <h2> Number of Movies: <span id="numMovies">0</span></h2>
+    <div>
+        <form id="addform">
+            <label for="admovie">Add Movie</label>
+            <input type="text" id="admovie">
+            <label for="removie">Remove Movie</label>
+            <input type="button" id="removie">
+        </form>
+
+        <div id="table"></div>
+    </div>
+    <div>
+        <form id="randommovie">
+            <label for="randommovie">Pick a Random Movie</label>
+            <input type="button" id="ranmovie">
+        </form>
+    </div>
+
+    <h2>Circle Representation</h2>
+    <div class="circular-progress">
+        <div class="circular-progress-circle" id="circle">
+
+            <!-- 1 -->
+
+            <!-- 2 -->
+            <!-- <div class="circle-movie" style="transform: rotate(0deg) skew(0deg)"></div>
+            <div class="circle-movie" style="transform: rotate(90deg) skew(0deg)"></div> -->
+
+            <!-- 3 -->
+            <!-- <div class="circle-movie" style="transform: rotate(0deg) skew(60deg)"></div>
+            <div class="circle-movie" style="transform: rotate(30deg) skew(60deg)"></div>
+            <div class="circle-movie" style="transform: rotate(60deg) skew(60deg)"></div>
+            <div class="circle-movie" style="transform: rotate(90deg) skew(60deg)"></div>
+            <div class="circle-movie" style="transform: rotate(120deg) skew(60deg)" id="movie1"></div>
+            <div class="circle-movie" style="transform: rotate(150deg) skew(60deg)" id="movie1"></div>
+            <div class="circle-movie" style="transform: rotate(180deg) skew(60deg)" id="movie1"></div>
+            <div class="circle-movie" style="transform: rotate(210deg) skew(60deg)" id="movie1"></div> -->
+
+            <!-- 4 -->
+            <!-- <div class="circle-movie" style="transform: rotate(0deg) skew(0deg)"></div>
+            <div class="circle-movie" style="transform: rotate(90deg) skew(0deg)" id="movie1"></div>
+            <div class="circle-movie" style="transform: rotate(180deg) skew(0deg)" id="movie2"></div> -->
+
+
+            <!-- 90 - (360 / num) is delta-rotation -->
+            <!-- 5 -->
+            <!-- <div class="circle-movie" style="transform: rotate(0deg) skew(18deg)"></div>
+            <div class="circle-movie" style="transform: rotate(72deg) skew(18deg)" id="movie1"></div>
+            <div class="circle-movie" style="transform: rotate(144deg) skew(18deg)" id="movie2"></div>
+            <div class="circle-movie" style="transform: rotate(216deg) skew(18deg)" id="movie3"></div> -->
+
+            <!-- 6 -->
+            <!-- <div class="circle-movie" style="transform: rotate(0deg) skew(30deg)"></div>
+            <div class="circle-movie" style="transform: rotate(60deg) skew(30deg)" id="movie1"></div>
+            <div class="circle-movie" style="transform: rotate(120deg) skew(30deg)" id="movie2"></div>
+            <div class="circle-movie" style="transform: rotate(180deg) skew(30deg)" id="movie3"></div>
+            <div class="circle-movie" style="transform: rotate(240deg) skew(30deg)" id="movie4"></div> -->
+
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
