@@ -1,46 +1,37 @@
+//next add ability to remove from the table
+//add map, no tuples in javascript. then change drawcircle to extract movietitle correctly
+
+//then use keyframes to rotate circle
+
 class MovieTable {
     constructor() {
-        this.size = 0;
+        this.id = 0;
         this.array = [];
-    }
-
-    full() {
-        return (this.size >= 100);
-    }
-
-    empty() {
-        return (this.size <= 0);
     }
 
     addMovie(movieTitle) {
         //not sure why this is necessary
-        let movie = '';
-        if (this.size % 10 === 0) {
-            //append a div
-            movie = document.createElement("li");
-            const table = document.getElementById("table");
-            table.appendChild(movie, table);
-        }
-
-        movie = document.createElement("li");
+        let movie = document.createElement("li");
         const movieName = document.createTextNode(movieTitle);
         movie.appendChild(movieName);
-        movie.setAttribute("id", "movie" + this.size);
-        this.array.push(movieTitle);
+        movie.setAttribute("id", "movie" + this.id);
+        movie.setAttribute("class", "movie");
+        console.log(this.array);
+        this.array.push((movieTitle, this.id));
+        console.log(this.array);
+        console.log([movieTitle, this.id]);
         movie.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
         const table = document.getElementById("table");
         table.appendChild(movie, table);
-        this.size++;
-        drawWheel(this.size);
+        this.id++;
+        drawWheel(this.array.length);
     }
 
-    removeMovie() {
-        const table = document.getElementById("movie" + (this.size - 1));
-        table.remove();
-        this.array.pop();
+    removeMovie(id) {
+        const found = this.array.indexOf(this.array.find(element => element[1] === id));
+        this.array.splice(found, 1);
 
-        this.size--;
-        drawWheel(this.size);
+        drawWheel(this.array.length);
     }
 }
 
@@ -50,9 +41,22 @@ const admovie = document.getElementById('addform')
 const movieName = document.querySelector("#admovie");
 const removie = document.querySelector("#removie");
 const randomMovie = document.getElementById('randommovie');
+const movieArray = document.getElementsByClassName("movie");
+
+
+var myfunction = function () {
+    myTable.removeMovie(this.id);
+    //console.log(this.id);
+}
+
+//add event listener 
 
 
 function drawWheel(num) {
+    for (var i = 0; i < movieArray.length; i++) {
+        movieArray[i].addEventListener('click', myfunction);
+        //console.log(movieArray[i]);
+    }
     //hardcode in 1-4, if chunks are <90deg can use formula
     const circle = document.getElementById('circle');
     if (num === 1) {
@@ -68,14 +72,15 @@ function drawWheel(num) {
         slice2.style = "transform: rotate(90deg) skew(0deg)";
         slice3.style = "transform: rotate(180deg) skew(0deg)";
         slice4.style = "transform: rotate(270deg) skew(0deg)";
-        let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        let color = document.getElementById("movie0").style.backgroundColor;
         slice1.style.backgroundColor = color;
         slice2.style.backgroundColor = color;
         slice3.style.backgroundColor = color;
         slice4.style.backgroundColor = color;
         //slice1.innerText = myTable.array[0];
         const text = document.createElement("a");
-        text.innerText = myTable.array[0];
+        text.innerText = myTable.array[0][0];
+        // console.log(text.innerText = myTable.array);
         //text.style = "transform: skew(-45deg)";
         text.style.display = "block";
         text.style.paddingLeft = "5%";
@@ -100,21 +105,21 @@ function drawWheel(num) {
         slice2.style = "transform: rotate(90deg) skew(0deg)";
         slice3.style = "transform: rotate(180deg) skew(0deg)";
         slice4.style = "transform: rotate(270deg) skew(0deg)";
-        let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        let color = document.getElementById("movie0").style.backgroundColor;
         slice1.style.backgroundColor = color;
         slice2.style.backgroundColor = color;
-        color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        color = document.getElementById("movie1").style.backgroundColor;
         slice3.style.backgroundColor = color;
         slice4.style.backgroundColor = color;
         // slice1.innerText = myTable.array[1];
         // slice3.innerText = myTable.array[0];
         const text = document.createElement("a");
-        text.innerText = myTable.array[0];
+        text.innerText = myTable.array[0][0];
         text.style.display = "block";
         text.style.paddingLeft = "5%";
         slice1.appendChild(text);
         const text1 = document.createElement("a");
-        text1.innerText = myTable.array[1];
+        text1.innerText = myTable.array[1][0];
         text1.style.display = "block";
         text1.style.paddingLeft = "5%";
         slice1.appendChild(text);
@@ -162,17 +167,17 @@ function drawWheel(num) {
         slice10.style = "transform: rotate(270deg) skew(60deg)";
         slice11.style = "transform: rotate(300deg) skew(60deg)";
         slice12.style = "transform: rotate(330deg) skew(60deg)";
-        let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        let color = document.getElementById("movie0").style.backgroundColor;
         slice1.style.backgroundColor = color;
         slice2.style.backgroundColor = color;
         slice3.style.backgroundColor = color;
         slice4.style.backgroundColor = color;
-        color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        color = document.getElementById("movie1").style.backgroundColor;
         slice5.style.backgroundColor = color;
         slice6.style.backgroundColor = color;
         slice7.style.backgroundColor = color;
         slice8.style.backgroundColor = color;
-        color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        color = document.getElementById("movie2").style.backgroundColor;
         slice9.style.backgroundColor = color;
         slice10.style.backgroundColor = color;
         slice11.style.backgroundColor = color;
@@ -181,19 +186,19 @@ function drawWheel(num) {
         // slice5.innerText = myTable.array[1];
         // slice9.innerText = myTable.array[2];
         const text = document.createElement("a");
-        text.innerText = myTable.array[0];
+        text.innerText = myTable.array[0][0];
         text.style = "transform: skew(-60deg)";
         text.style.display = "block";
         text.style.paddingLeft = "1%";
         slice2.appendChild(text);
         const text1 = document.createElement("a");
-        text1.innerText = myTable.array[1];
+        text1.innerText = myTable.array[1][0];
         text1.style = "transform: skew(-60deg)";
         text1.style.display = "block";
         text1.style.paddingLeft = "1%";
         slice6.appendChild(text1);
         const text2 = document.createElement("a");
-        text2.innerText = myTable.array[2];
+        text2.innerText = myTable.array[2][0];
         text2.style = "transform: skew(-60deg)";
         text2.style.display = "block";
         text2.style.paddingLeft = "1%";
@@ -225,9 +230,10 @@ function drawWheel(num) {
         slice2.style = "transform: rotate(90deg) skew(0deg)";
         slice3.style = "transform: rotate(180deg) skew(0deg)";
         slice4.style = "transform: rotate(270deg) skew(0deg)";
-        slice2.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-        slice3.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-        slice4.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        slice1.style.backgroundColor = document.getElementById("movie0").style.backgroundColor;
+        slice2.style.backgroundColor = document.getElementById("movie1").style.backgroundColor;
+        slice3.style.backgroundColor = document.getElementById("movie2").style.backgroundColor;
+        slice4.style.backgroundColor = document.getElementById("movie3").style.backgroundColor;
         slice1.innerText = myTable.array[0];
         slice2.innerText = myTable.array[1];
         slice3.innerText = myTable.array[2];
@@ -247,10 +253,10 @@ function drawWheel(num) {
         slice = document.createElement("li");
         slice.className = "circle-movie";
         slice.style = `transform: rotate(${i * deltaRotation}deg) skew(${skew}deg)`;
-        slice.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        slice.style.backgroundColor = document.getElementById("movie" + i).style.backgroundColor;
         // could scale text and padding, revist later
         text = document.createElement("a");
-        text.innerText = myTable.array[i];
+        text.innerText = myTable.array[i][0];
         text.style = `transform: skew(-${skew}deg)`;
         text.style.display = "block";
         text.style.paddingLeft = "1%";
@@ -266,15 +272,15 @@ function getRandomInt(max) {
 
 randomMovie.addEventListener('click', () => {
     const movieID = "movie" + getRandomInt(myTable.size);
-    console.log
     let movie = document.getElementById(movieID);
     movie.style.backgroundColor = 'green';
     randomMovie.append(movie);
+    drawWheel(myTable.size);
 });
 
 admovie.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (myTable.full()) {
+    if (myTable.length === 100) {
         window.alert('Max Movies');
         return;
     }
@@ -284,7 +290,7 @@ admovie.addEventListener('submit', function (e) {
 });
 
 removie.addEventListener('click', () => {
-    if (myTable.empty()) {
+    if (myTable.length === 0) {
         return;
     }
     myTable.removeMovie();
