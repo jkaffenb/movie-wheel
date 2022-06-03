@@ -1,7 +1,5 @@
-
-
-//use use keyframes to rotate circle
-
+//figure out wheel selecting, stop passive spin animation, spin wheel, and then select the movie by using 
+// https://stackoverflow.com/questions/6394118/how-can-i-select-an-element-based-on-its-position
 class MovieTable {
     constructor() {
         this.id = 0;
@@ -28,13 +26,9 @@ class MovieTable {
     }
 
     removeMovie(id) {
-        console.log("arraybeofre: ");
-        console.log(this.array);
-        console.log(id);
         const found = this.array.indexOf(this.array.find(element => element.movieID === id));
         this.array.splice(found, 1);
-        console.log("arrayafter: ");
-        console.log(this.array);
+        numMovies.innerText = myTable.array.length;
         drawWheel(this.array.length);
         document.getElementById(id).remove();
     }
@@ -44,25 +38,18 @@ const numMovies = document.querySelector('#numMovies');
 const myTable = new MovieTable();
 const admovie = document.getElementById('addform')
 const movieName = document.querySelector("#admovie");
-// const removie = document.querySelector("#removie");
 const randomMovie = document.getElementById('randommovie');
 const movieArray = document.getElementsByClassName("movie");
+const wheel = document.querySelector('.circular-progress');
 
 
 var myfunction = function () {
-    console.log("hello");
-    console.log(this.id);
     myTable.removeMovie(this.id);
-    //console.log(this.id);
 }
-
-//add event listener 
-
 
 function drawWheel(num) {
     for (var i = 0; i < movieArray.length; i++) {
         movieArray[i].addEventListener('click', myfunction);
-        //console.log(movieArray[i]);
     }
     //hardcode in 0-4, if chunks are <90deg can use formula
     const circle = document.getElementById('circle');
@@ -108,11 +95,8 @@ function drawWheel(num) {
         slice2.style.backgroundColor = color;
         slice3.style.backgroundColor = color;
         slice4.style.backgroundColor = color;
-        //slice1.innerText = myTable.array[0];
         const text = document.createElement("a");
         text.innerText = myTable.array[0].movieName;
-        // console.log(text.innerText = myTable.array);
-        //text.style = "transform: skew(-45deg)";
         text.style.display = "block";
         text.style.paddingLeft = "5%";
         slice1.appendChild(text);
@@ -142,8 +126,6 @@ function drawWheel(num) {
         color = myTable.array[1].color;
         slice3.style.backgroundColor = color;
         slice4.style.backgroundColor = color;
-        // slice1.innerText = myTable.array[1];
-        // slice3.innerText = myTable.array[0];
         const text = document.createElement("a");
         text.innerText = myTable.array[0].movieName;
         text.style.display = "block";
@@ -284,7 +266,7 @@ function drawWheel(num) {
         slice = document.createElement("li");
         slice.className = "circle-movie";
         slice.style = `transform: rotate(${i * deltaRotation}deg) skew(${skew}deg)`;
-        slice.style.backgroundColor = myTable.array[i].color;//document.getElementById("movie" + i).style.backgroundColor;
+        slice.style.backgroundColor = myTable.array[i].color;
         // could scale text and padding, revist later
         text = document.createElement("a");
         text.innerText = myTable.array[i].movieName;
@@ -302,10 +284,24 @@ function getRandomInt(max) {
 }
 
 randomMovie.addEventListener('click', () => {
-    const movieID = "movie" + getRandomInt(myTable.size);
+    if (myTable.array.length < 2) {
+        alert("Need more than 1 movie!");
+        return;
+    }
+    console.log(wheel);
+    console.log(wheel.backgroundColor);
+    console.log(wheel.animation);
+    console.log(wheel.position);
+
+    const movieNumber = getRandomInt(myTable.array.length);
+    const movieID = myTable.array.at(movieNumber).movieID;
+
     let movie = document.getElementById(movieID);
     movie.style.backgroundColor = 'green';
+    movie.id = 'winner'
+    numMovies.innerText = myTable.array.length;
     randomMovie.append(movie);
+    myTable.removeMovie(movieID);
     drawWheel(myTable.size);
 });
 
@@ -319,12 +315,3 @@ admovie.addEventListener('submit', function (e) {
     numMovies.innerText = myTable.array.length;
 
 });
-
-// removie.addEventListener('click', () => {
-//     if (myTable.length === 0) {
-//         return;
-//     }
-//     myTable.removeMovie();
-//     numMovies.innerText = myTable.array.length;
-// })
-
