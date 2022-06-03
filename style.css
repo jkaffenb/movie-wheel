@@ -10,13 +10,10 @@ form{
 
 #table {
     width: 300px;
-    /* height: 160px; */
     display: inline-block;
     list-style-type: none;
     column-count: 3;
     margin: 0%;
-    /* padding-bottom: 3%; */
-    /* background: red; */
 }
 
 li {
@@ -27,6 +24,7 @@ li {
     position: relative;
     display: inline-block;
     margin-right: 20px;
+    animation: passive-spin 15s infinite linear;
   }
   
   .circular-progress-circle {
@@ -49,3 +47,7 @@ li {
     transform-origin: 0 0;
   }
   
+@keyframes passive-spin {
+  from{ transform: rotate(0)}
+  to{transform: rotate(360deg)}
+}
