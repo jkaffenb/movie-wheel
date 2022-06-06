@@ -1,5 +1,13 @@
-//figure out wheel selecting, stop passive spin animation, spin wheel, and then select the movie by using 
-// https://stackoverflow.com/questions/6394118/how-can-i-select-an-element-based-on-its-position
+// TODO:
+
+//doesnt work if run more than once or something is weird with slice and finding color
+
+// move MovieTable to seperate file
+
+// why weird naming on wheel for first two movies
+
+// make webpage pretty
+
 class MovieTable {
     constructor() {
         this.id = 0;
@@ -12,7 +20,11 @@ class MovieTable {
         movie.appendChild(movieName);
         movie.setAttribute("id", "movie" + this.id);
         movie.setAttribute("class", "movie");
-        let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        var x = Math.round(0xffffff * Math.random()).toString(16);
+        var y = (6 - x.length);
+        var z = "000000";
+        var z1 = z.substring(0, y);
+        var color = "#" + z1 + x;
         this.array.push({
             "movieName": movieTitle,
             "movieID": "movie" + this.id,
@@ -283,18 +295,35 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-randomMovie.addEventListener('click', () => {
-    if (myTable.array.length < 2) {
-        alert("Need more than 1 movie!");
+function spinWheel(speed) {
+    if (speed === -1) {
+        wheel.style.animationPlayState = "paused";
         return;
     }
-    console.log(wheel);
-    console.log(wheel.backgroundColor);
-    console.log(wheel.animation);
-    console.log(wheel.position);
+    wheel.style.animation = `forward-spin ${speed}s infinite linear`
 
-    const movieNumber = getRandomInt(myTable.array.length);
-    const movieID = myTable.array.at(movieNumber).movieID;
+    return;
+}
+
+function randomSpin() {
+    setTimeout(function () { spinWheel(.5); }, 500);
+    setTimeout(function () { spinWheel(-1); }, 6000);
+    setTimeout(function () { grabWinner(); }, 7500);
+    return;
+}
+
+function grabWinner() {
+    let centerX = wheel.offsetLeft + wheel.offsetWidth / 2;
+    let centerY = wheel.offsetTop + wheel.offsetHeight / 2;
+    const winner = document.elementFromPoint(centerX + 1, centerY);
+
+    const myrgb = winner.style.backgroundColor;
+    console.log(myrgb);
+    const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
+    const movieColor = rgb2hex(myrgb);
+
+    const found = myTable.array.indexOf(myTable.array.find(element => element.color === movieColor));
+    const movieID = myTable.array[found].movieID;
 
     let movie = document.getElementById(movieID);
     movie.style.backgroundColor = 'green';
@@ -303,6 +332,17 @@ randomMovie.addEventListener('click', () => {
     randomMovie.append(movie);
     myTable.removeMovie(movieID);
     drawWheel(myTable.size);
+    return;
+}
+
+randomMovie.addEventListener('click', () => {
+    if (myTable.array.length < 2) {
+        alert("Need more than 1 movie!");
+        return;
+    }
+
+    randomSpin();
+    return;
 });
 
 admovie.addEventListener('submit', function (e) {
