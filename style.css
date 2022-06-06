@@ -1,19 +1,19 @@
 h1 {
-    background-color: red;
-    text-align: center;
-    display: inline-block;
+  background-color: red;
+  text-align: center;
+  display: inline-block;
 }
 
-form{
+form {
   padding: 1%;
 }
 
 #table {
-    width: 300px;
-    display: inline-block;
-    list-style-type: none;
-    column-count: 3;
-    margin: 0%;
+  width: 300px;
+  display: inline-block;
+  list-style-type: none;
+  column-count: 3;
+  margin: 0%;
 }
 
 li {
@@ -21,33 +21,38 @@ li {
 }
 
 .circular-progress {
-    position: relative;
-    display: inline-block;
-    margin-right: 20px;
-    animation: passive-spin 15s infinite linear;
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+  animation: forward-spin 15s infinite linear;
+}
+
+.circular-progress-circle {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: red;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.circle-movie {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vw;
+  background: blue;
+  transform-origin: 0 0;
+}
+
+@keyframes forward-spin {
+  100% {
+    transform: rotate(360deg)
   }
-  
-  .circular-progress-circle {
-    display: inline-block;
-    position: relative;
-    width: 200px;
-    height: 200px;
-    background: red;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  
-  .circle-movie {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 100vw;
-    background: blue;
-    transform-origin: 0 0;
-  }
-  
-@keyframes passive-spin {
-  from{ transform: rotate(0)}
-  to{transform: rotate(360deg)}
+}
+
+@keyframes idle {
+  100% {}
 }
