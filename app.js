@@ -1,11 +1,5 @@
 // TODO:
 
-//doesnt work if run more than once or something is weird with slice and finding color
-
-// move MovieTable to seperate file
-
-// why weird naming on wheel for first two movies
-
 // make webpage pretty
 
 class MovieTable {
@@ -110,7 +104,7 @@ function drawWheel(num) {
         const text = document.createElement("a");
         text.innerText = myTable.array[0].movieName;
         text.style.display = "block";
-        text.style.paddingLeft = "5%";
+        text.style.paddingLeft = "1%";
         slice1.appendChild(text);
         circle.append(slice1);
         circle.append(slice2);
@@ -141,12 +135,12 @@ function drawWheel(num) {
         const text = document.createElement("a");
         text.innerText = myTable.array[0].movieName;
         text.style.display = "block";
-        text.style.paddingLeft = "5%";
+        text.style.paddingLeft = "1%";
         slice1.appendChild(text);
         const text1 = document.createElement("a");
         text1.innerText = myTable.array[1].movieName;
         text1.style.display = "block";
-        text1.style.paddingLeft = "5%";
+        text1.style.paddingLeft = "1%";
         slice1.appendChild(text);
         slice3.appendChild(text1);
         circle.append(slice1);
@@ -207,9 +201,6 @@ function drawWheel(num) {
         slice10.style.backgroundColor = color;
         slice11.style.backgroundColor = color;
         slice12.style.backgroundColor = color;
-        // slice1.innerText = myTable.array[0];
-        // slice5.innerText = myTable.array[1];
-        // slice9.innerText = myTable.array[2];
         const text = document.createElement("a");
         text.innerText = myTable.array[0].movieName;
         text.style = "transform: skew(-60deg)";
@@ -312,15 +303,27 @@ function randomSpin() {
     return;
 }
 
-function grabWinner() {
+function findColor() {
+    //this selection isn't perfect, come back and fix later
     let centerX = wheel.offsetLeft + wheel.offsetWidth / 2;
     let centerY = wheel.offsetTop + wheel.offsetHeight / 2;
     const winner = document.elementFromPoint(centerX + 1, centerY);
+    var myrgb = winner.style.backgroundColor;
 
-    const myrgb = winner.style.backgroundColor;
-    console.log(myrgb);
+    if (myrgb.length === 0) {
+        //needed if selects text instead of pie slice
+        var temp = winner.display;
+        winner.style.display = "none";
+        const newWinner = document.elementFromPoint(centerX + 1, centerY);
+        winner.style.display = temp;
+        myrgb = newWinner.style.backgroundColor;
+    }
     const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
-    const movieColor = rgb2hex(myrgb);
+    return rgb2hex(myrgb);
+}
+
+function grabWinner() {
+    const movieColor = findColor();
 
     const found = myTable.array.indexOf(myTable.array.find(element => element.color === movieColor));
     const movieID = myTable.array[found].movieID;
