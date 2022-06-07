@@ -10,32 +10,56 @@
 </head>
 
 <body>
+    <style>
+        body {
+            background-image: url('wp2800049.jpg');
+            color: aliceblue;
+            font-family: Helvetica, sans-serif;
+        }
+    </style>
     <h1>Movie Picker</h1>
 
-    <h2> Number of Movies: <span id="numMovies">0</span></h2>
-    <div>
-        <form id="addform">
-            <label for="admovie">Add Movie</label>
-            <input type="text" id="admovie">
-            <!-- <label for="removie">Remove Movie</label>
-            <input type="button" id="removie"> -->
-        </form>
-        <h2>Click on the movie table to remove!</h2>
+    <div class="rules-add-parent">
+        <div class="rules-container">
+            <img src="Da_Rules.webp" alt="" id="darules">
+            <ul>2 movies per person</ul>
+            <ul>1 veto per person</ul>
+            <ul>Vetoes must be submitted before trailer ends</ul>
+        </div>
+
+        <div class="add-container">
+            <h2> Number of Movies: <span id="numMovies">0</span></h2>
 
 
-        <!-- <h2>Circle Representation</h2> -->
-        <div class="circular-progress">
-            <div class="circular-progress-circle" id="circle">
+            <form id="addform">
+                <label for="admovie">Add Movie</label>
+                <input type="text" id="admovie">
+            </form>
+        </div>
+    </div>
+
+    <div class="wheel-table-parent">
+        <div class="wheel-container">
+            <div class="circular-progress">
+                <div class="circular-progress-circle" id="circle">
+                </div>
+            </div>
+
+
+            <div>
+                <form id="randommovie">
+                    <label for="randommovie">Pick a Random Movie</label>
+                    <input type="button" id="ranmovie">
+                </form>
             </div>
         </div>
-        <!-- <div id="table"></div> -->
-        <ul id="table"></ul>
-    </div>
-    <div>
-        <form id="randommovie">
-            <label for="randommovie">Pick a Random Movie</label>
-            <input type="button" id="ranmovie">
-        </form>
+
+        <div class="table-container">
+            <h2>Click on the movie table to remove!</h2>
+            <ul id="table"></ul>
+        </div>
+
+
     </div>
 
 
