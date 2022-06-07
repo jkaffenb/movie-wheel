@@ -1,11 +1,47 @@
 h1 {
-  background-color: red;
   text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
 }
 
 form {
   padding: 1%;
+}
+
+#darules {
+  width: 10em;
+  float: left;
+}
+
+.rules-add-container {
+  width: 100%;
+  flex-direction: row;
+}
+
+.rules-container {
+  left: 0px;
+  width: 50%;
+}
+
+.add-container {
+  position: absolute;
+  right: 0px;
+  width: 50%;
+}
+
+.wheel-table-parent {
+  flex-direction: row;
+  width: 100%;
+}
+
+.wheel-container {
+  left: 0px;
+  width: 50%;
+}
+
+.table-container {
+  right: 0px;
+  position: absolute;
+  width: 50%;
 }
 
 #table {
