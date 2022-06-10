@@ -1,6 +1,6 @@
 // TODO:
 
-// make webpage pretty
+// color sometimes don't display, also reject colors that are hard to read
 
 class MovieTable {
     constructor() {
@@ -47,6 +47,7 @@ const movieName = document.querySelector("#admovie");
 const randomMovie = document.getElementById('randommovie');
 const movieArray = document.getElementsByClassName("movie");
 const wheel = document.querySelector('.circular-progress');
+const ticker = document.querySelector('.triangle-lft');
 
 
 var myfunction = function () {
@@ -304,17 +305,17 @@ function randomSpin() {
 }
 
 function findColor() {
-    //this selection isn't perfect, come back and fix later
-    let centerX = wheel.offsetLeft + wheel.offsetWidth / 2;
-    let centerY = wheel.offsetTop + wheel.offsetHeight / 2;
-    const winner = document.elementFromPoint(centerX + 1, centerY);
+    let rect = ticker.getBoundingClientRect();
+    let xCoord = rect.left - 5;
+    let yCoord = ((rect.bottom - rect.top) / 2) + rect.top;
+    const winner = document.elementFromPoint(xCoord, yCoord);
     var myrgb = winner.style.backgroundColor;
 
     if (myrgb.length === 0) {
         //needed if selects text instead of pie slice
         var temp = winner.display;
         winner.style.display = "none";
-        const newWinner = document.elementFromPoint(centerX + 1, centerY);
+        const newWinner = document.elementFromPoint(xCoord, yCoord);
         winner.style.display = temp;
         myrgb = newWinner.style.backgroundColor;
     }
