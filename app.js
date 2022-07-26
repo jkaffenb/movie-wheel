@@ -2,6 +2,10 @@
 
 // color sometimes don't display, also reject colors that are hard to read
 
+// instead of free select select from list of movies
+
+// use python script to play trailer of selected movie
+
 class MovieTable {
     constructor() {
         this.id = 0;
