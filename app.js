@@ -1,10 +1,16 @@
 // TODO:
 
-// color sometimes don't display, also reject colors that are hard to read
+// color sometimes don't display
+
+// add buffers around table of movies
+//switches on the 7th, overwrites on the eighth
+//table fixes itself if the window is resized at all
+//https://stackoverflow.com/questions/6737424/when-window-size-is-smaller-elements-overlap-eachother
 
 // instead of free select select from list of movies
 
-// use python script to play trailer of selected movie
+// incorporate python script to play trailer of selected movie
+
 
 class MovieTable {
     constructor() {
@@ -18,19 +24,15 @@ class MovieTable {
         movie.appendChild(movieName);
         movie.setAttribute("id", "movie" + this.id);
         movie.setAttribute("class", "movie");
-        var x = Math.round(0xffffff * Math.random()).toString(16);
-        var y = (6 - x.length);
-        var z = "000000";
-        var z1 = z.substring(0, y);
-        var color = "#" + z1 + x;
+        var color = color_picker();
         this.array.push({
             "movieName": movieTitle,
             "movieID": "movie" + this.id,
             "color": color
         });
-        movie.style.backgroundColor = color
+        movie.style.backgroundColor = color;
         const table = document.getElementById("table");
-        table.appendChild(movie, table);
+        table.appendChild(movie);
         this.id++;
         drawWheel(this.array.length);
     }
@@ -53,6 +55,41 @@ const movieArray = document.getElementsByClassName("movie");
 const wheel = document.querySelector('.circular-progress');
 const ticker = document.querySelector('.triangle-lft');
 
+function is_readable(h) {
+    let r = 0, g = 0, b = 0;
+
+    // 3 digits
+    if (h.length == 4) {
+        r = "0x" + h[1] + h[1];
+        g = "0x" + h[2] + h[2];
+        b = "0x" + h[3] + h[3];
+
+        // 6 digits
+    } else if (h.length == 7) {
+        r = "0x" + h[1] + h[2];
+        g = "0x" + h[3] + h[4];
+        b = "0x" + h[5] + h[6];
+    }
+
+    if ((parseInt(r) * 0.299 + parseInt(g) * 0.587 + parseInt(b) * 0.114) > 186) {
+        return false;
+    }
+    return true;
+
+}
+
+function color_picker() {
+    var x = Math.round(0xffffff * Math.random()).toString(16);
+    var y = (6 - x.length);
+    var z = "000000";
+    var z1 = z.substring(0, y);
+    var color = "#" + z1 + x;
+    if (is_readable(color)) {
+        return color;
+    }
+    console.log("not readable");
+    return color_picker();
+}
 
 var myfunction = function () {
     myTable.removeMovie(this.id);
