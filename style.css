@@ -50,11 +50,11 @@ form {
 }
 
 #table {
-  width: 35em;
+  /* width: 35em; */
   text-align: center;
   list-style-type: none;
   column-count: 3;
-  margin: 0%;
+  /* margin: 0%; */
 }
 
 li {
